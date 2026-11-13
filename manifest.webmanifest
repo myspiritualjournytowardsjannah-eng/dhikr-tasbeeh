@@ -1,0 +1,18 @@
+{
+  "name": "Dhikr \u2014 Remember Allah",
+  "short_name": "Dhikr",
+  "description": "A calm digital tasbeeh and dhikr companion.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a1020",
+  "theme_color": "#101a32",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

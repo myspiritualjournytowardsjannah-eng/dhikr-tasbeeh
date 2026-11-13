@@ -1,0 +1,130 @@
+:root {
+  color-scheme: dark;
+  --bg: #0a1020;
+  --surface: #111c33;
+  --surface-2: #172541;
+  --line: rgba(211, 195, 151, .16);
+  --gold: #d7c28d;
+  --gold-bright: #ead9a9;
+  --text: #f4f0e6;
+  --muted: #a8b0c1;
+  --soft: #d0c8b6;
+  --shadow: 0 22px 70px rgba(0,0,0,.24);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; min-height: 100vh; color: var(--text);
+  background:
+    radial-gradient(ellipse at 50% -12%, rgba(56,79,122,.34), transparent 48%),
+    radial-gradient(ellipse at 100% 55%, rgba(91,72,44,.10), transparent 35%), var(--bg);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+button, select { font: inherit; }
+button { color: inherit; }
+.app-shell { width: min(100% - 32px, 760px); margin: 0 auto; padding-bottom: 40px; }
+.topbar { height: 76px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); }
+.brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); }
+.brand-mark { color:var(--gold); font-size:25px; }
+.brand-name { font-size:19px; font-weight:650; letter-spacing:.04em; }
+.brand-name span, footer span { color:var(--gold); }
+.icon-button { border:1px solid var(--line); background:var(--surface); border-radius:50%; width:40px; height:40px; cursor:pointer; color:var(--gold); }
+.hero { padding:56px 0 34px; text-align:center; }
+.eyebrow { font-size:10px; letter-spacing:.19em; font-weight:700; color:var(--gold); }
+.sparkle { margin-right:7px; }
+h1 { font-family: Georgia, "Times New Roman", serif; font-size:clamp(42px, 8vw, 66px); line-height:1.04; font-weight:400; letter-spacing:-.04em; margin:19px 0 15px; }
+h1 em { color:var(--gold); font-weight:400; }
+.hero p { max-width:440px; margin:0 auto; color:var(--muted); font-size:14px; line-height:1.7; }
+.counter-card, .virtue-card, .verse-card, .garden-card, .hadith-card { background:linear-gradient(145deg, rgba(24,39,66,.97), rgba(15,26,47,.98)); border:1px solid var(--line); border-radius:23px; box-shadow:var(--shadow); }
+.counter-card { padding:26px clamp(18px, 5vw, 42px) 30px; text-align:center; }
+.card-topline { display:flex; align-items:center; justify-content:space-between; }
+.session-pill { font-size:9px; letter-spacing:.12em; color:var(--muted); border:1px solid var(--line); padding:7px 10px; border-radius:20px; }
+.live-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:#9db89c; margin-right:6px; }
+.dhikr-select-wrap { position:relative; width:max-content; max-width:100%; margin:25px auto 12px; }
+select { appearance:none; background:transparent; color:var(--text); border:0; font-family:Georgia,serif; font-size:clamp(25px,5vw,34px); text-align:center; padding:4px 28px 4px 8px; cursor:pointer; }
+select option { background:#14213a; color:#fff; font-family:system-ui; font-size:16px; }
+.select-chevron { position:absolute; right:5px; top:50%; transform:translateY(-50%); color:var(--gold); pointer-events:none; font-size:20px; }
+.arabic { color:var(--gold-bright); font-size:clamp(32px,7vw,43px); margin:10px 0 8px; line-height:1.8; font-family:"Noto Naskh Arabic","Amiri",serif; }
+h2 { font-size:15px; font-weight:600; margin:0; letter-spacing:.02em; }
+.meaning { margin:7px 0 0; color:var(--muted); font-size:13px; }
+.count-area { max-width:360px; margin:26px auto 22px; }
+.count-number { font-size:clamp(62px, 13vw, 86px); line-height:1.08; font-weight:300; font-variant-numeric:tabular-nums; letter-spacing:-.05em; }
+.target-line { display:flex; justify-content:space-between; align-items:center; color:var(--muted); font-size:11px; margin:12px 0 10px; }
+.target-line strong { color:var(--text); font-weight:600; }
+.text-button { border:0; background:transparent; color:var(--gold); font-size:11px; cursor:pointer; padding:5px; }
+.progress-track { height:5px; border-radius:9px; background:rgba(255,255,255,.09); overflow:hidden; }
+.progress-fill { width:0; height:100%; border-radius:9px; background:linear-gradient(90deg,#9c895d,var(--gold-bright)); transition:width .22s ease; }
+.counter-actions { display:flex; align-items:center; justify-content:center; gap:clamp(16px,5vw,34px); }
+.reset-button { width:43px; height:43px; border-radius:50%; border:1px solid var(--line); background:rgba(255,255,255,.025); color:var(--soft); font-size:23px; cursor:pointer; }
+.tap-button { width:132px; height:132px; border-radius:50%; border:1px solid rgba(237,218,168,.55); background:radial-gradient(circle at 35% 25%, #dfcea0, #a58d5b); color:#101a2d; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; cursor:pointer; box-shadow:0 0 0 9px rgba(215,194,141,.07), 0 12px 35px rgba(0,0,0,.24); transition:transform .12s, filter .12s; }
+.tap-button:active { transform:scale(.96); filter:brightness(1.12); }
+.tap-plus { font-size:42px; line-height:1; font-weight:300; }
+.tap-button span:last-child { font-size:8px; letter-spacing:.16em; font-weight:800; }
+.completion-message { min-height:18px; margin-top:16px; color:var(--gold); font-size:12px; }
+.garden-card { margin-top:18px; padding:25px clamp(20px,5vw,34px); background:linear-gradient(145deg, rgba(24,39,66,.97), rgba(15,26,47,.98)); border:1px solid var(--line); border-radius:23px; box-shadow:var(--shadow); }
+.garden-intro { color:var(--muted); font-size:13px; line-height:1.65; margin:15px 0 18px; }
+.garden-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; }
+.tree-card { min-width:0; text-align:center; padding:12px 9px 13px; border:1px solid var(--line); border-radius:16px; background:rgba(7,15,30,.22); transition:border-color .35s, background .35s; }
+.tree-card.selected { border-color:rgba(215,194,141,.65); background:rgba(215,194,141,.07); }
+.tree-art { height:108px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.tree-art svg { width:120px; height:108px; overflow:visible; }
+.tree-trunk { fill:none; stroke:#9b8055; stroke-width:7; stroke-linecap:round; }
+.palm-frond { fill:none; stroke:#819b78; stroke-width:5; stroke-linecap:round; stroke-linejoin:round; }
+.palm-fruit { fill:#c9a66c; }
+.tree-canopy { transform-box:fill-box; transform-origin:50% 100%; transform:scale(var(--growth,.58)); transition:transform 720ms cubic-bezier(.2,.75,.2,1); }
+.ground-line { fill:none; stroke:rgba(215,194,141,.45); stroke-width:1.5; }
+.tree-name { font-size:12px; font-weight:650; min-height:18px; }
+.tree-count { color:var(--gold); font-size:16px; font-variant-numeric:tabular-nums; margin-top:5px; }
+.tree-count span { color:var(--muted); font-size:9px; }
+.tree-select { border:0; background:transparent; color:var(--muted); text-decoration:underline; text-underline-offset:3px; font-size:10px; padding:8px 2px 0; cursor:pointer; }
+.tree-card.selected .tree-select { color:var(--gold); text-decoration:none; }
+.garden-disclaimer { color:#8d98aa; font-size:10px; line-height:1.6; margin:16px 0 0; }
+.hadith-card { margin-top:18px; padding:25px clamp(20px,5vw,34px); background:linear-gradient(145deg, rgba(24,39,66,.97), rgba(15,26,47,.98)); border:1px solid var(--line); border-radius:23px; box-shadow:var(--shadow); }
+.hadith-card h3 { margin:8px 0 14px; }
+.hadith-arabic { color:var(--gold-bright); font:29px/2 "Noto Naskh Arabic","Amiri",serif; text-align:center; margin:8px 0; }
+.hadith-transliteration { color:var(--gold); font-size:12px; text-align:center; margin:0 0 12px; }
+.hadith-translation { font:italic 16px/1.6 Georgia,serif; color:var(--text); }
+.grading-note { color:var(--muted); font-size:11px; line-height:1.7; margin:13px 0; }
+.reference-link { color:var(--gold); font-size:11px; text-underline-offset:3px; }
+.virtue-card { margin-top:18px; padding:25px clamp(20px,5vw,34px); }
+.section-heading { display:flex; justify-content:space-between; align-items:center; }
+h3 { font:400 23px Georgia,serif; margin:8px 0 0; }
+.ornament { color:var(--gold); font-size:26px; }
+.virtue-content { border-left:1px solid rgba(215,194,141,.45); padding:4px 0 4px 18px; margin:22px 0 0; }
+.quote { font:italic 18px/1.55 Georgia,serif; color:#f0e9d9; margin:0 0 12px; }
+.source { font-size:11px; color:var(--gold); letter-spacing:.04em; }
+.reflection { color:var(--muted); font-size:13px; line-height:1.7; margin:16px 0 0; }
+.reference-note { color:#78849a; font-size:10px; margin:19px 0 0; line-height:1.5; }
+.verse-card { margin-top:18px; text-align:center; padding:26px 20px; }
+.verse-arabic { font-size:32px; line-height:1.9; color:var(--gold-bright); margin:10px 0; font-family:"Noto Naskh Arabic","Amiri",serif; }
+.verse-translation { font:italic 17px/1.5 Georgia,serif; margin:0 0 10px; }
+.quick-stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:18px 0; }
+.quick-stats > div { border:1px solid var(--line); background:rgba(17,28,51,.72); border-radius:16px; padding:17px 19px; }
+.quick-stats strong { display:block; font-size:28px; font-weight:400; margin:8px 0 2px; font-variant-numeric:tabular-nums; }
+.quick-stats small { color:var(--muted); font-size:11px; }
+.bottom-nav { display:flex; justify-content:center; gap:14px; border-top:1px solid var(--line); padding:18px 0 10px; margin-top:25px; }
+.nav-item { text-decoration:none; border:0; background:none; color:var(--muted); font-size:11px; padding:8px 14px; cursor:pointer; }
+.nav-item span { color:var(--gold); margin-right:5px; }
+.nav-item.active { color:var(--text); }
+footer { text-align:center; color:#78849a; font-size:10px; padding:16px 0; letter-spacing:.06em; }
+.toast { position:fixed; bottom:24px; left:50%; transform:translate(-50%,20px); opacity:0; background:#e7d6a7; color:#101a2d; padding:10px 16px; border-radius:30px; font-size:12px; pointer-events:none; transition:.2s; z-index:5; }
+.toast.show { opacity:1; transform:translate(-50%,0); }
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+body.light { --bg:#f2efe7; --surface:#fffdf8; --surface-2:#ebe5d7; --line:rgba(87,75,49,.16); --text:#1b2639; --muted:#687184; --soft:#596274; --gold:#8c7546; --gold-bright:#9b8150; --shadow:0 18px 55px rgba(35,36,43,.08); background:radial-gradient(ellipse at 50% -12%,#e2dfd4,transparent 48%),var(--bg); color:var(--text); color-scheme:light; }
+body.light .counter-card, body.light .virtue-card, body.light .verse-card, body.light .garden-card, body.light .hadith-card { background:linear-gradient(145deg,#fffdf8,#f7f3e9); }
+body.light .quote { color:#28344a; }
+body.light .quick-stats > div { background:rgba(255,253,248,.8); }
+body.light select { color:var(--text); }
+@media (max-width:480px) {
+  .app-shell { width:min(100% - 22px,760px); }
+  .topbar { height:64px; }
+  .hero { padding:42px 0 26px; }
+  .counter-card { padding:20px 15px 24px; border-radius:19px; }
+  .session-pill { font-size:8px; }
+  .tap-button { width:116px; height:116px; }
+  .reset-button { width:39px; height:39px; }
+  .virtue-card, .verse-card, .garden-card, .hadith-card { border-radius:19px; }
+  .tree-art { height:96px; }
+  .tree-art svg { height:96px; }
+}
+@media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; } }

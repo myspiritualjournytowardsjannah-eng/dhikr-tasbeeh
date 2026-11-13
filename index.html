@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a32">
+  <meta name="description" content="A calm digital tasbeeh and dhikr companion.">
+  <title>Dhikr — Remember Allah</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell" id="top">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Dhikr home">
+        <span class="brand-mark">ذِكْر</span>
+        <span class="brand-name">dhikr<span>.</span></span>
+      </a>
+      <button class="icon-button" id="themeButton" aria-label="Toggle colour theme" title="Toggle theme">☾</button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="eyebrow"><span class="sparkle">✦</span> A MOMENT OF REMEMBRANCE</div>
+        <h1>Let your heart<br><em>remember.</em></h1>
+        <p>A quiet space to pause, make dhikr, and reflect on the words you recite.</p>
+      </section>
+
+      <section class="counter-card" id="counter-card" aria-labelledby="dhikrTitle">
+        <div class="card-topline">
+          <span class="eyebrow">YOUR TASBEEH</span>
+          <span class="session-pill"><span class="live-dot"></span> IN THIS SESSION</span>
+        </div>
+        <div class="dhikr-select-wrap">
+          <label class="sr-only" for="dhikrSelect">Choose a dhikr</label>
+          <select id="dhikrSelect">
+            <option value="subhanallah">SubhanAllah</option>
+            <option value="alhamdulillah">Alhamdulillah</option>
+            <option value="allahuakbar">Allahu Akbar</option>
+            <option value="astaghfirullah">Astaghfirullah</option>
+            <option value="tahlil">La ilaha illallah</option>
+          </select>
+          <span class="select-chevron">⌄</span>
+        </div>
+        <div class="arabic" id="arabicText" lang="ar" dir="rtl">سُبْحَانَ اللَّهِ</div>
+        <h2 id="dhikrTitle">SubhanAllah</h2>
+        <p class="meaning" id="meaningText">Glory be to Allah</p>
+
+        <div class="count-area">
+          <div class="count-number" id="countNumber" aria-live="polite">0</div>
+          <div class="target-line">
+            <span>Target <strong id="targetLabel">33</strong></span>
+            <button class="text-button" id="editTarget">Change target</button>
+          </div>
+          <div class="progress-track" role="progressbar" aria-label="Dhikr target progress" aria-valuemin="0" aria-valuemax="33" aria-valuenow="0" id="progressTrack">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <div class="counter-actions">
+          <button class="reset-button" id="resetButton" title="Reset this count" aria-label="Reset this count">↺</button>
+          <button class="tap-button" id="tapButton" aria-label="Count one dhikr">
+            <span class="tap-plus">+</span>
+            <span>TAP TO COUNT</span>
+          </button>
+          <button class="reset-button" id="undoButton" title="Undo last count" aria-label="Undo last count">↶</button>
+        </div>
+        <div class="completion-message" id="completionMessage" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="garden-card" aria-labelledby="gardenTitle">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">A GARDEN OF REMEMBRANCE</div>
+            <h3 id="gardenTitle">Grow through dhikr</h3>
+          </div>
+          <span class="ornament" aria-hidden="true">✧</span>
+        </div>
+        <p class="garden-intro">Each dhikr has its own little symbolic tree. As your count grows, its illustration gently unfolds.</p>
+        <div class="garden-grid" id="gardenGrid" aria-label="Symbolic trees for each dhikr"></div>
+        <p class="garden-disclaimer">A visual reminder only — these illustrations do not count, measure, or represent rewards in Paradise.</p>
+      </section>
+
+      <section class="virtue-card" id="reflection">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">PAUSE & REFLECT</div>
+            <h3>The virtue of this dhikr</h3>
+          </div>
+          <span class="ornament">✧</span>
+        </div>
+        <div class="virtue-content">
+          <p class="quote" id="virtueText">“The words most beloved to Allah are four: SubhanAllah, Alhamdulillah, La ilaha illallah, and Allahu Akbar.”</p>
+          <div class="source" id="sourceText">Sahih Muslim 2137</div>
+          <p class="reflection" id="reflectionText">A short phrase can carry a great meaning. Recite with attention, remembering the One you are praising.</p>
+        </div>
+        <div class="reference-note">References are shown so you can check the original wording and context.</div>
+      </section>
+
+      <section class="hadith-card" aria-labelledby="treeHadithTitle">
+        <div class="eyebrow">A HADITH REMINDER</div>
+        <h3 id="treeHadithTitle">A date-palm in Paradise</h3>
+        <p class="hadith-arabic" lang="ar" dir="rtl">مَنْ قَالَ سُبْحَانَ اللَّهِ الْعَظِيمِ وَبِحَمْدِهِ غُرِسَتْ لَهُ نَخْلَةٌ فِي الْجَنَّةِ</p>
+        <p class="hadith-transliteration">Subḥānallāhil-ʿAẓīm wa biḥamdih.</p>
+        <p class="hadith-translation">“Whoever says, ‘Glory is to Allah, the Magnificent, and with His Praise,’ a date-palm tree is planted for him in Paradise.”</p>
+        <div class="source">Jamiʿ at-Tirmidhi 3464 · Book 48, Hadith 95</div>
+        <p class="grading-note">Grading differs: al-Tirmidhi described it as <em>hasan sahih gharib</em>; the Darussalam grading displayed by Sunnah.com is <em>daʿif</em>. Other hadith scholars, including al-Albani, graded it authentic. Please consult a trusted scholar for guidance.</p>
+        <a class="reference-link" href="https://sunnah.com/tirmidhi/48/95" target="_blank" rel="noopener noreferrer">Read the hadith and grading notes on Sunnah.com ↗</a>
+      </section>
+
+      <section class="verse-card">
+        <div class="eyebrow">A QURAN REMINDER</div>
+        <div class="verse-arabic" lang="ar" dir="rtl">فَاذْكُرُونِي أَذْكُرْكُمْ</div>
+        <p class="verse-translation">“So remember Me; I will remember you.”</p>
+        <div class="source">Surah Al-Baqarah 2:152</div>
+      </section>
+
+      <section class="quick-stats">
+        <div><span class="eyebrow">TODAY'S COUNT</span><strong id="todayCount">0</strong><small>remembrances</small></div>
+        <div><span class="eyebrow">DHIKR TYPES</span><strong id="typesCount">0</strong><small>practised today</small></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <a class="nav-item active" href="#top" aria-current="page"><span>◉</span> Tasbeeh</a>
+      <a class="nav-item" href="#reflection"><span>۞</span> Reminders</a>
+      <button class="nav-item" id="installButton" hidden><span>↓</span> Install</button>
+    </nav>
+    <footer>Made for mindful remembrance <span>✦</span></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

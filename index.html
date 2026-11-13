@@ -28,6 +28,39 @@
       </section>
 
       <section class="counter-card" id="counter-card" aria-labelledby="dhikrTitle">
+        <div class="garden-scene" id="gardenScene" data-stage="rain" aria-hidden="true">
+          <div class="scene-sky">
+            <span class="scene-moon"></span><span class="scene-cloud cloud-one"></span><span class="scene-cloud cloud-two"></span>
+            <span class="scene-star star-one">✦</span><span class="scene-star star-two">✧</span>
+          </div>
+          <svg class="scene-landscape" viewBox="0 0 600 310" preserveAspectRatio="xMidYMax slice" focusable="false">
+            <defs>
+              <linearGradient id="scene-ground" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9b09e"/><stop offset="1" stop-color="#8f897d"/></linearGradient>
+              <linearGradient id="scene-path" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d5cdbb"/><stop offset="1" stop-color="#a9a08f"/></linearGradient>
+            </defs>
+            <path class="distant-hill" d="M0 92 Q80 50 160 88 T320 82 T480 76 T600 90 V140 H0Z"/>
+            <path class="garden-wall" d="M0 94 H600 V178 H0Z"/>
+            <path class="wall-top" d="M0 94 H600"/>
+            <g class="wall-arches">
+              <path d="M28 178 V132 Q28 112 48 112 Q68 112 68 132 V178Z M120 178 V132 Q120 112 140 112 Q160 112 160 132 V178Z M440 178 V132 Q440 112 460 112 Q480 112 480 132 V178Z M532 178 V132 Q532 112 552 112 Q572 112 572 132 V178Z"/>
+            </g>
+            <path class="scene-ground" d="M0 178 L600 178 V310 H0Z"/>
+            <path class="garden-path" d="M258 178 H342 L390 310 H210Z"/>
+            <path class="path-edge" d="M258 178 L210 310 M342 178 L390 310"/>
+            <path class="plant-bed bed-left" d="M72 194 L220 194 L183 260 H28Z"/>
+            <path class="plant-bed bed-right" d="M380 194 H528 L572 260 H417Z"/>
+            <path class="bed-edge" d="M72 194 L28 260 M220 194 L183 260 M380 194 L417 260 M528 194 L572 260"/>
+            <g class="scene-fountain">
+              <ellipse cx="300" cy="229" rx="65" ry="19"/><ellipse cx="300" cy="225" rx="53" ry="12"/>
+              <path d="M294 222 Q289 208 300 203 Q311 208 306 222Z"/>
+              <path class="water-ripple" d="M267 227 Q300 244 333 227 M279 232 Q300 241 321 232"/>
+            </g>
+            <g class="scene-plants" id="scenePlants"></g>
+            <g class="scene-palm palm-left"><path d="M62 178 Q64 147 60 127"/><path d="M60 129 Q33 108 20 121 Q41 119 59 136 M60 129 Q51 102 36 99 Q51 115 62 136 M61 129 Q73 101 91 102 Q76 117 63 136 M62 132 Q91 117 105 132 Q83 127 64 139"/></g>
+            <g class="scene-palm palm-right"><path d="M538 178 Q536 147 540 127"/><path d="M540 129 Q513 108 500 121 Q521 119 539 136 M540 129 Q531 102 516 99 Q531 115 542 136 M541 129 Q553 101 571 102 Q556 117 543 136 M542 132 Q571 117 585 132 Q563 127 544 139"/></g>
+          </svg>
+          <div class="scene-stage"><span data-stage-label>RAIN</span><span>GARDEN</span><span>FOUNTAIN</span><span>DAWN</span></div>
+        </div>
         <div class="card-topline">
           <span class="eyebrow">YOUR TASBEEH</span>
           <span class="session-pill"><span class="live-dot"></span> IN THIS SESSION</span>
@@ -67,19 +100,6 @@
           <button class="reset-button" id="undoButton" title="Undo last count" aria-label="Undo last count">↶</button>
         </div>
         <div class="completion-message" id="completionMessage" role="status" aria-live="polite"></div>
-      </section>
-
-      <section class="garden-card" aria-labelledby="gardenTitle">
-        <div class="section-heading">
-          <div>
-            <div class="eyebrow">A GARDEN OF REMEMBRANCE</div>
-            <h3 id="gardenTitle">Grow through dhikr</h3>
-          </div>
-          <span class="ornament" aria-hidden="true">✧</span>
-        </div>
-        <p class="garden-intro">Each dhikr has its own little symbolic tree. As your count grows, its illustration gently unfolds.</p>
-        <div class="garden-grid" id="gardenGrid" aria-label="Symbolic trees for each dhikr"></div>
-        <p class="garden-disclaimer">A visual reminder only — these illustrations do not count, measure, or represent rewards in Paradise.</p>
       </section>
 
       <section class="virtue-card" id="reflection">

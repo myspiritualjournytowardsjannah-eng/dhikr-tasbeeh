@@ -51,80 +51,32 @@ function makeSapling(index) {
   sapling.style.setProperty("--sapling-delay", `${Math.min(index * 18, 180)}ms`);
   return sapling;
 }
-function updateMiniGrove(card, count) {
-  const grove = card.querySelector("[data-mini-grove]");
-  const caption = card.querySelector("[data-grove-caption]");
-  const lastCount = Number(grove.dataset.lastCount || 0);
-  if (count < lastCount) grove.innerHTML = "";
-  const existing = grove.children.length;
-  if (count <= 18) {
-    for (let i = existing; i < count; i++) grove.appendChild(makeSapling(i));
-  } else if (existing === 0) {
-    for (let i = Math.max(0, count - 18); i < count; i++) grove.appendChild(makeSapling(i));
-  } else if (count > lastCount) {
-    if (grove.children.length >= 18) grove.firstElementChild.remove();
-    grove.appendChild(makeSapling(count));
-  }
-  grove.dataset.lastCount = String(count);
-  caption.textContent = count > 18 ? `A growing grove · ${count.toLocaleString()} recitations` :
-    `${count.toLocaleString()} little ${count === 1 ? "tree" : "trees"} in this illustration`;
-}
+function updateScene() {
+  const scene = $("gardenScene");
+  const plants = $("scenePlants");
+  if (!scene || !plants) return;
+  const count = countFor();
+  const stage = count >= 100 ? "dawn" : count >= 50 ? "fountain" : count >= 20 ? "garden" : count > 0 ? "rain" : "rest";
+  scene.dataset.stage = stage;
+  const stageLabel = scene.querySelector("[data-stage-label]");
+  if (stageLabel) stageLabel.textContent = stage === "rest" ? "BEGIN" : stage.toUpperCase();
 
-function updateGarden() {
-  const grid = $("gardenGrid");
-  if (!grid) return;
-  if (!grid.dataset.built) {
-    grid.innerHTML = Object.entries(dhikrs).map(([id, item]) => `
-      <article class="tree-card" data-tree-id="${id}">
-        <div class="tree-art" aria-hidden="true">
-          <svg viewBox="0 0 140 132" focusable="false">
-            <path class="tree-trunk" d="M69 119 C73 99 72 80 70 60 C69 52 69 46 70 39" />
-            <g class="tree-canopy" style="--growth:.58">
-              <path class="palm-frond" d="M70 44 C51 24 28 20 13 26 C32 28 48 35 67 49" />
-              <path class="palm-frond" d="M70 43 C51 14 34 8 22 10 C41 20 54 32 69 49" />
-              <path class="palm-frond" d="M70 42 C68 17 77 7 88 3 C83 21 79 34 72 50" />
-              <path class="palm-frond" d="M72 44 C91 17 110 13 124 18 C103 25 88 35 74 50" />
-              <path class="palm-frond" d="M73 46 C98 31 119 34 132 44 C109 42 92 45 75 52" />
-              <path class="palm-frond" d="M68 46 C48 38 28 43 17 55 C39 48 53 49 68 53" />
-              <circle class="palm-fruit" cx="70" cy="51" r="4" />
-              <circle class="palm-fruit" cx="77" cy="54" r="3.5" />
-            </g>
-            <path class="ground-line" d="M28 120 Q70 113 112 120" />
-          </svg>
-        </div>
-        <div class="mini-grove" data-mini-grove aria-label="A symbolic grove that grows with each tap"></div>
-        <div class="grove-caption" data-grove-caption>0 little trees in this illustration</div>
-        <div class="tree-name">${item.name}</div>
-        <div class="tree-count"><strong data-tree-count>0</strong> <span>recitations</span></div>
-        <button class="tree-select" type="button" data-select-tree="${id}">Choose this dhikr</button>
-      </article>`).join("");
-    grid.dataset.built = "true";
-    grid.querySelectorAll("[data-select-tree]").forEach(button => {
-      button.addEventListener("click", () => {
-        $("dhikrSelect").value = button.dataset.selectTree;
-        updateUI();
-        $("counter-card").scrollIntoView({ behavior: "smooth", block: "center" });
-      });
-    });
+  // The illustration shows up to 30 individual plants; later recitations deepen
+  // the garden's growth and unlock scenery rather than implying a literal reward count.
+  const visiblePlants = Math.min(count, 30);
+  if (Number(plants.dataset.count || -1) === visiblePlants) return;
+  plants.dataset.count = String(visiblePlants);
+  const spots = [];
+  for (let i = 0; i < 15; i++) {
+    spots.push({ x: 35 + i * 10.2, y: 216 + (i % 2) * 10, scale: .62 + (i % 3) * .08 });
+    spots.push({ x: 385 + i * 10.2, y: 216 + ((i + 1) % 2) * 10, scale: .62 + ((i + 1) % 3) * .08 });
   }
-  grid.querySelectorAll("[data-tree-id]").forEach(card => {
-    const id = card.dataset.treeId;
-    const count = state.counts[id] || 0;
-    const growth = Math.min(1, count / 100);
-    const scale = (0.58 + growth * 0.42).toFixed(3);
-    const canopy = card.querySelector(".tree-canopy");
-    canopy.style.setProperty("--growth", scale);
-    canopy.classList.remove("grow-now");
-    void canopy.getBoundingClientRect();
-    canopy.classList.add("grow-now");
-    updateMiniGrove(card, count);
-    card.querySelector("[data-tree-count]").textContent = count.toLocaleString();
-    const selected = id === currentId();
-    card.classList.toggle("selected", selected);
-    const button = card.querySelector("[data-select-tree]");
-    button.textContent = selected ? "Currently selected" : "Choose this dhikr";
-    button.setAttribute("aria-label", `${selected ? "Currently selected" : "Select"} ${dhikrs[id].name}`);
-  });
+  const chosen = spots.slice(0, visiblePlants);
+  plants.innerHTML = chosen.map((spot, i) => `
+    <g class="scene-sapling" transform="translate(${spot.x.toFixed(1)} ${spot.y}) scale(${spot.scale.toFixed(2)})" style="--plant-delay:${Math.min(i * 22, 500)}ms">
+      <path class="plant-stem" d="M0 0 Q1 -8 0 -15"/>
+      <path class="plant-leaf" d="M0 -13 Q-8 -23 -14 -18 Q-7 -17 -1 -10 M0 -14 Q-2 -25 4 -29 Q4 -20 1 -10 M1 -13 Q9 -23 15 -18 Q8 -17 2 -10"/>
+    </g>`).join("");
 }
 
 function updateUI() {
@@ -149,7 +101,8 @@ function updateUI() {
   $("typesCount").textContent = Object.values(today).filter(v => v > 0).length;
   $("themeButton").textContent = state.theme === "dark" ? "☀" : "☾";
   document.body.classList.toggle("dark", state.theme === "dark");
-  updateGarden();
+  document.body.classList.toggle("light", state.theme !== "dark");
+  updateScene();
 }
 function showToast(message) {
   $("toast").textContent = message;

@@ -1,4 +1,4 @@
-const CACHE = "dhikr-pwa-cache-v3";
+const CACHE = "dhikr-pwa-cache-v4";
 const ASSETS = ["./", "./index.html", "./styles.css", "./app.js", "./manifest.webmanifest", "./icon.svg"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));

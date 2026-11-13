@@ -143,3 +143,72 @@ body.dark { --bg:#0a1020; --surface:#111c33; --surface-2:#172541; --line:rgba(21
 body.dark .counter-card, body.dark .virtue-card, body.dark .verse-card, body.dark .garden-card, body.dark .hadith-card { background:linear-gradient(145deg,#111c33,#172541); }
 body.dark .quick-stats > div { background:rgba(17,28,51,.72); }
 @media (prefers-reduced-motion:reduce) { .mini-sapling,.tree-canopy.grow-now { animation:none!important; } }
+
+/* Living garden scene integrated into the counter itself. */
+.counter-card { position:relative; isolation:isolate; overflow:hidden; }
+.counter-card > :not(.garden-scene) { position:relative; z-index:2; }
+.garden-scene { position:absolute; z-index:0; inset:128px 0 0; min-height:330px; overflow:hidden; pointer-events:none; opacity:.92; }
+.scene-sky { position:absolute; inset:0 0 48%; overflow:hidden; background:linear-gradient(180deg,#d9e1df 0%,#c6d4d0 100%); }
+.scene-moon { position:absolute; top:12%; right:13%; width:27px; height:27px; border-radius:50%; background:#f7edcf; box-shadow:0 0 24px rgba(248,232,184,.45); }
+.scene-moon:after { content:""; position:absolute; width:25px; height:25px; border-radius:50%; background:#d3ded9; left:8px; top:-4px; }
+.scene-cloud { position:absolute; width:66px; height:17px; border-radius:20px; background:rgba(255,255,255,.56); filter:blur(.2px); }
+.scene-cloud:before,.scene-cloud:after { content:""; position:absolute; border-radius:50%; background:inherit; }
+.scene-cloud:before { width:25px;height:25px;left:12px;top:-10px; }
+.scene-cloud:after { width:30px;height:28px;right:8px;top:-13px; }
+.cloud-one { top:25%; left:14%; transform:scale(.8); }
+.cloud-two { top:43%; right:18%; transform:scale(1.1); }
+.scene-star { position:absolute; color:#fff4d6; font-size:13px; opacity:.8; }
+.star-one { top:14%; left:18%; }.star-two { top:54%; right:39%; }
+.scene-landscape { position:absolute; width:100%; height:100%; left:0; bottom:0; }
+.distant-hill { fill:#9baa91; opacity:.7; }
+.garden-wall { fill:#d2c9b8; stroke:#a99d89; stroke-width:2; }
+.wall-top { stroke:#f1e8d5; stroke-width:4; }
+.wall-arches { fill:#827b78; opacity:.8; }
+.scene-ground { fill:url(#scene-ground); }
+.garden-path { fill:url(#scene-path); opacity:.94; }
+.path-edge { fill:none; stroke:#eee4d1; stroke-width:3; opacity:.8; }
+.plant-bed { fill:#766b59; stroke:#d6c9ad; stroke-width:3; }
+.bed-edge { fill:none; stroke:#e7dcc7; stroke-width:3; }
+.scene-fountain ellipse:first-child { fill:#9b9b91; stroke:#eee3ce; stroke-width:5; }
+.scene-fountain ellipse:nth-child(2) { fill:#7ca9b0; stroke:#e3e0d3; stroke-width:2; }
+.scene-fountain path:not(.water-ripple) { fill:#d6c49b; }
+.water-ripple { fill:none; stroke:#d7edf0; stroke-width:2; opacity:.8; }
+.scene-palm { fill:none; stroke:#7b765b; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; opacity:.8; }
+.scene-palm path:not(:first-child) { stroke:#829777; stroke-width:3; }
+.scene-sapling { transform-box:fill-box; transform-origin:50% 100%; animation:scene-plant-pop .55s cubic-bezier(.2,.8,.2,1) both; animation-delay:var(--plant-delay,0ms); }
+.plant-stem { fill:none; stroke:#8c7049; stroke-width:3; stroke-linecap:round; }
+.plant-leaf { fill:#88a17a; stroke:#647f61; stroke-width:1.1; stroke-linecap:round; stroke-linejoin:round; }
+.scene-stage { position:absolute; left:10%; right:10%; bottom:7px; display:flex; justify-content:space-between; color:#5c665e; font-size:7px; letter-spacing:.13em; font-weight:800; opacity:.75; }
+.scene-stage span { padding:3px 5px; border-radius:10px; background:rgba(255,252,240,.48); }
+.garden-scene[data-stage="garden"] .distant-hill { fill:#819c7d; }
+.garden-scene[data-stage="fountain"] .scene-fountain { filter:drop-shadow(0 0 7px rgba(120,190,204,.5)); }
+.garden-scene[data-stage="dawn"] .scene-sky { background:linear-gradient(180deg,#e6cba7,#e9d9b9 68%,#c8d4c1); }
+.garden-scene[data-stage="dawn"] .scene-moon { background:#fff1c7; box-shadow:0 0 32px rgba(255,231,171,.8); }
+.garden-scene[data-stage="rest"] .scene-plants { opacity:.22; }
+@keyframes scene-plant-pop { 0%{opacity:0;transform:translateY(8px) scale(.45)} 72%{opacity:1;transform:translateY(-2px) scale(1.08)} 100%{opacity:1;transform:translateY(0) scale(1)} }
+
+/* Consistent readable contrast in the preferred light theme. */
+body.light .counter-card, body.light .virtue-card, body.light .verse-card, body.light .hadith-card { color:#1b2639; }
+body.light .counter-card { background:linear-gradient(145deg,rgba(255,253,248,.96),rgba(247,243,233,.94)); }
+body.light .card-topline .eyebrow, body.light .session-pill, body.light .meaning,
+body.light .target-line, body.light .garden-intro, body.light .reflection,
+body.light .grading-note, body.light .reference-note, body.light .reference-link,
+body.light .hadith-translation, body.light .verse-translation { color:#4f5b6d; }
+body.light .count-number, body.light h2, body.light h3, body.light .dhikr-select-wrap select,
+body.light .target-line strong, body.light .quote { color:#1b2639; }
+body.light .progress-track { background:rgba(27,38,57,.13); }
+body.light .reset-button { color:#4f5b6d; border-color:rgba(27,38,57,.2); background:rgba(255,255,255,.42); }
+body.light .scene-stage { color:#39483f; }
+body.light .garden-scene { opacity:.82; }
+body.dark .garden-scene { opacity:.62; }
+body.dark .scene-sky { background:linear-gradient(180deg,#172744,#253b59); }
+body.dark .scene-moon:after { background:#1c2e49; }
+body.dark .distant-hill { fill:#263d43; }
+body.dark .garden-wall { fill:#615e5d; stroke:#8d8376; }
+body.dark .wall-arches { fill:#282b36; }
+body.dark .scene-ground { fill:#5d554d; }
+body.dark .garden-path { fill:#777064; }
+body.dark .plant-bed { fill:#40372f; }
+body.dark .scene-stage { color:#e9e1d0; }
+@media (max-width:480px) { .garden-scene { inset:120px 0 0; min-height:300px; } }
+@media (prefers-reduced-motion:reduce) { .scene-sapling { animation:none!important; } }

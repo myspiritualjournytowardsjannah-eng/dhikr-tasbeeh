@@ -72,12 +72,14 @@ function updateScene() {
     spots.push({ x: 385 + i * 10.2, y: 216 + ((i + 1) % 2) * 10, scale: .62 + ((i + 1) % 3) * .08 });
   }
   const chosen = spots.slice(0, visiblePlants);
+  
   plants.innerHTML = chosen.map((spot, i) => `
-    <g class="scene-sapling" transform="translate(${spot.x.toFixed(1)} ${spot.y}) scale(${spot.scale.toFixed(2)})" style="--plant-delay:${Math.min(i * 22, 500)}ms">
-      <path class="plant-stem" d="M0 0 Q1 -8 0 -15"/>
-      <path class="plant-leaf" d="M0 -13 Q-8 -23 -14 -18 Q-7 -17 -1 -10 M0 -14 Q-2 -25 4 -29 Q4 -20 1 -10 M1 -13 Q9 -23 15 -18 Q8 -17 2 -10"/>
+    <g transform="translate(${spot.x.toFixed(1)} ${spot.y}) scale(${spot.scale.toFixed(2)})">
+      <g class="scene-sapling" style="--plant-delay:${Math.min(i * 22, 500)}ms">
+        <path class="plant-stem" d="M0 0 Q1 -8 0 -15"/>
+        <path class="plant-leaf" d="M0 -13 Q-8 -23 -14 -18 Q-7 -17 -1 -10 M0 -14 Q-2 -25 4 -29 Q4 -20 1 -10 M1 -13 Q9 -23 15 -18 Q8 -17 2 -10"/>
+      </g>
     </g>`).join("");
-}
 
 function updateUI() {
   const item = dhikrs[currentId()];

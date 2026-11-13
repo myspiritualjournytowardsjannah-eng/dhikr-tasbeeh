@@ -1,23 +1,21 @@
 :root {
-  color-scheme: dark;
-  --bg: #0a1020;
-  --surface: #111c33;
-  --surface-2: #172541;
-  --line: rgba(211, 195, 151, .16);
-  --gold: #d7c28d;
-  --gold-bright: #ead9a9;
-  --text: #f4f0e6;
-  --muted: #a8b0c1;
-  --soft: #d0c8b6;
-  --shadow: 0 22px 70px rgba(0,0,0,.24);
+  color-scheme: light;
+  --bg: #f2efe7;
+  --surface: #fffdf8;
+  --surface-2: #ebe5d7;
+  --line: rgba(87,75,49,.16);
+  --gold: #8c7546;
+  --gold-bright: #9b8150;
+  --text: #1b2639;
+  --muted: #687184;
+  --soft: #596274;
+  --shadow: 0 18px 55px rgba(35,36,43,.08);
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
   margin: 0; min-height: 100vh; color: var(--text);
-  background:
-    radial-gradient(ellipse at 50% -12%, rgba(56,79,122,.34), transparent 48%),
-    radial-gradient(ellipse at 100% 55%, rgba(91,72,44,.10), transparent 35%), var(--bg);
+  background: radial-gradient(ellipse at 50% -12%, #e2dfd4, transparent 48%), var(--bg);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 button, select { font: inherit; }
@@ -128,3 +126,20 @@ body.light select { color:var(--text); }
   .tree-art svg { height:96px; }
 }
 @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; } }
+
+/* A new symbolic sapling is added to the grove on every counter tap. */
+.mini-grove { min-height:42px; display:flex; flex-wrap:wrap; justify-content:center; align-items:flex-end; gap:3px; padding:5px 8px 0; margin:2px auto 0; max-width:100%; }
+.mini-sapling { display:inline-flex; width:20px; height:27px; transform-origin:bottom center; animation:sapling-pop .42s cubic-bezier(.2,.8,.2,1) both; animation-delay:var(--sapling-delay,0ms); }
+.mini-sapling svg { width:100%; height:100%; overflow:visible; }
+.sapling-trunk { fill:none; stroke:#a47d43; stroke-width:2.5; stroke-linecap:round; }
+.sapling-leaf { fill:#7f9b72; stroke:#66845d; stroke-width:.7; stroke-linecap:round; stroke-linejoin:round; }
+.grove-caption { min-height:15px; color:var(--muted); font-size:9px; letter-spacing:.02em; margin:1px 0 7px; }
+.tree-canopy { transform-box:fill-box; transform-origin:50% 100%; transition:transform .55s cubic-bezier(.2,.8,.2,1); transform:scale(var(--growth,.58)); }
+.tree-canopy.grow-now { animation:canopy-grow .58s cubic-bezier(.2,.8,.2,1); }
+@keyframes sapling-pop { 0%{opacity:0;transform:translateY(9px) scale(.45)} 70%{opacity:1;transform:translateY(-2px) scale(1.12)} 100%{opacity:1;transform:translateY(0) scale(1)} }
+@keyframes canopy-grow { 0%{transform:scale(calc(var(--growth,.58)*.82))} 65%{transform:scale(calc(var(--growth,.58)*1.08))} 100%{transform:scale(var(--growth,.58))} }
+body:not(.dark) { color-scheme:light; }
+body.dark { --bg:#0a1020; --surface:#111c33; --surface-2:#172541; --line:rgba(211,195,151,.16); --gold:#d7c28d; --gold-bright:#ead9a9; --text:#f4f0e6; --muted:#a8b0c1; --soft:#d0c8b6; --shadow:0 22px 70px rgba(0,0,0,.24); color-scheme:dark; background:radial-gradient(ellipse at 50% -12%,rgba(56,79,122,.34),transparent 48%),radial-gradient(ellipse at 100% 55%,rgba(91,72,44,.10),transparent 35%),var(--bg); }
+body.dark .counter-card, body.dark .virtue-card, body.dark .verse-card, body.dark .garden-card, body.dark .hadith-card { background:linear-gradient(145deg,#111c33,#172541); }
+body.dark .quick-stats > div { background:rgba(17,28,51,.72); }
+@media (prefers-reduced-motion:reduce) { .mini-sapling,.tree-canopy.grow-now { animation:none!important; } }

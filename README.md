@@ -32,3 +32,4 @@ To test installation, use localhost or deploy the folder to an HTTPS host (for e
 - Other included references are starter content. Before public release, verify Arabic spelling/diacritics, translations, hadith wording, numbering and grading against a trusted edition or scholar.
 - Dhikr targets are user-set convenience goals, not a claim that a particular count is required for every phrase.
 - A production release should add a fuller source/verification workflow, privacy policy, accessibility testing, and icon sizes for platform-specific installation.
+\n\n## Garden update\nThe light theme is the default. Each counter tap adds a new small symbolic sapling to that dhikr's illustrated grove, while its main palm illustration gently grows with the count. The garden is decorative only and does not represent or measure rewards in Paradise.\n

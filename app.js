@@ -27,21 +27,49 @@ const dhikrs = {
 };
 
 const $ = (id) => document.getElementById(id);
-const STORAGE_KEY = "dhikr-pwa-v1";
+const STORAGE_KEY = "dhikr-pwa-v2";
 const todayKey = new Date().toLocaleDateString("en-CA");
 let state = loadState();
 let toastTimer;
 
 function loadState() {
   try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-    return { counts: saved.counts || {}, targets: saved.targets || {}, daily: saved.daily || {}, theme: saved.theme || "dark" };
-  } catch { return { counts: {}, targets: {}, daily: {}, theme: "dark" }; }
+    const hasV2 = localStorage.getItem(STORAGE_KEY) !== null;
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || localStorage.getItem("dhikr-pwa-v1") || "{}");
+    return { counts: saved.counts || {}, targets: saved.targets || {}, daily: saved.daily || {}, theme: hasV2 ? (saved.theme || "light") : "light" };
+  } catch { return { counts: {}, targets: {}, daily: {}, theme: "light" }; }
 }
 function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
 function currentId() { return $("dhikrSelect").value; }
 function countFor(id=currentId()) { return state.counts[id] || 0; }
 function targetFor(id=currentId()) { return state.targets[id] || 33; }
+function makeSapling(index) {
+  const sapling = document.createElement("span");
+  sapling.className = "mini-sapling";
+  sapling.setAttribute("aria-hidden", "true");
+  sapling.innerHTML = `<svg viewBox="0 0 32 38" focusable="false"><path d="M16 34 Q17 25 16 16" class="sapling-trunk"/><path d="M16 17 Q7 8 2 12 Q9 13 15 20 M16 16 Q13 5 8 3 Q13 10 16 19 M16 16 Q20 5 26 4 Q21 11 17 19 M17 18 Q26 12 30 16 Q23 16 17 21" class="sapling-leaf"/></svg>`;
+  sapling.style.setProperty("--sapling-delay", `${Math.min(index * 18, 180)}ms`);
+  return sapling;
+}
+function updateMiniGrove(card, count) {
+  const grove = card.querySelector("[data-mini-grove]");
+  const caption = card.querySelector("[data-grove-caption]");
+  const lastCount = Number(grove.dataset.lastCount || 0);
+  if (count < lastCount) grove.innerHTML = "";
+  const existing = grove.children.length;
+  if (count <= 18) {
+    for (let i = existing; i < count; i++) grove.appendChild(makeSapling(i));
+  } else if (existing === 0) {
+    for (let i = Math.max(0, count - 18); i < count; i++) grove.appendChild(makeSapling(i));
+  } else if (count > lastCount) {
+    if (grove.children.length >= 18) grove.firstElementChild.remove();
+    grove.appendChild(makeSapling(count));
+  }
+  grove.dataset.lastCount = String(count);
+  caption.textContent = count > 18 ? `A growing grove · ${count.toLocaleString()} recitations` :
+    `${count.toLocaleString()} little ${count === 1 ? "tree" : "trees"} in this illustration`;
+}
+
 function updateGarden() {
   const grid = $("gardenGrid");
   if (!grid) return;
@@ -64,6 +92,8 @@ function updateGarden() {
             <path class="ground-line" d="M28 120 Q70 113 112 120" />
           </svg>
         </div>
+        <div class="mini-grove" data-mini-grove aria-label="A symbolic grove that grows with each tap"></div>
+        <div class="grove-caption" data-grove-caption>0 little trees in this illustration</div>
         <div class="tree-name">${item.name}</div>
         <div class="tree-count"><strong data-tree-count>0</strong> <span>recitations</span></div>
         <button class="tree-select" type="button" data-select-tree="${id}">Choose this dhikr</button>
@@ -82,7 +112,12 @@ function updateGarden() {
     const count = state.counts[id] || 0;
     const growth = Math.min(1, count / 100);
     const scale = (0.58 + growth * 0.42).toFixed(3);
-    card.querySelector(".tree-canopy").style.setProperty("--growth", scale);
+    const canopy = card.querySelector(".tree-canopy");
+    canopy.style.setProperty("--growth", scale);
+    canopy.classList.remove("grow-now");
+    void canopy.getBoundingClientRect();
+    canopy.classList.add("grow-now");
+    updateMiniGrove(card, count);
     card.querySelector("[data-tree-count]").textContent = count.toLocaleString();
     const selected = id === currentId();
     card.classList.toggle("selected", selected);
@@ -112,8 +147,8 @@ function updateUI() {
   const today = state.daily[todayKey] || {};
   $("todayCount").textContent = Object.values(today).reduce((a,b) => a+b, 0);
   $("typesCount").textContent = Object.values(today).filter(v => v > 0).length;
-  $("themeButton").textContent = state.theme === "dark" ? "☾" : "☀";
-  document.body.classList.toggle("light", state.theme === "light");
+  $("themeButton").textContent = state.theme === "dark" ? "☀" : "☾";
+  document.body.classList.toggle("dark", state.theme === "dark");
   updateGarden();
 }
 function showToast(message) {
